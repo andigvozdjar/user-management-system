@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "./sharedStyle.scss";
+@import "./colors.scss";
+@import "./overrides.scss";
+@import '~ngx-toastr/toastr';
+@import'./media.scss';
+
+:root {
+  font-size: 16px;
+  color: $main-text-color;
+}
+
+@include md {
+  :root {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,43 @@
+.sidebar-container {
+  width: 250px;
+  .sidebar-menu.mat-expansion-panel {
+    width: 100%;
+    &.hide-content {
+      .mat-expansion-panel-header.mat-expanded {
+        height: 48px;
+      }
+      .mat-expansion-panel-content {
+        height: 0px !important;
+        visibility: hidden !important;
+      }
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 0 1rem 0;
+    }
+    .mat-expansion-panel-content {
+      .mat-expansion-panel-header {
+        padding-left: 3rem;
+      }
+    }
+  
+    &.index-1 {
+      .mat-expansion-panel-header {
+        padding-left: 2rem;
+      }
+    }
+  
+    &.index-2 {
+      .mat-expansion-panel-header {
+        padding-left: 2.5rem;
+      }
+    }
+  
+    &.index-3 {
+      .mat-expansion-panel-header {
+        padding-left: 3rem;
+      }
+    }
+  }
+
+}

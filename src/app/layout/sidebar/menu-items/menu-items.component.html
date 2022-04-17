@@ -1,0 +1,39 @@
+<mat-accordion class="sidebar-container" multi>
+  <ng-container *ngTemplateOutlet="recursiveitemsTmpl; context:{ items: items$ | async, index: 0 }"></ng-container>
+</mat-accordion>
+
+<!-- Menu expansion panel template  -->
+<ng-template #recursiveitemsTmpl let-items="items" let-index="index">
+  <ng-container *ngFor="let item of items; let i = index">
+    <mat-expansion-panel [hideToggle]="!item?.children" [id]="item.id" class="sidebar-menu index-{{index}} mat-elevation-z" [ngClass]="{'hide-content': !item.children }" [hideToggle]="!item.children || item.children?.length == 0">
+      <mat-expansion-panel-header>
+        <!-- Menu item with link -->
+        <a class="py-3 px-3 w-full" *ngIf="item.link;else noRouteTemplate" [routerLink]="[item.link ?? ['./']]"  [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="router-link-active">
+          <ng-container *ngTemplateOutlet="menuItemTemplate; context:{ item }"></ng-container>
+        </a>
+
+        <!-- Menu item without link -->
+        <ng-template #noRouteTemplate>
+          <ng-container *ngTemplateOutlet="menuItemTemplate; context:{ item }"></ng-container>
+        </ng-template>
+
+      </mat-expansion-panel-header>
+
+      <!-- Menu expansion panel for its children -->
+      <ng-container *ngIf="item.children && item.children?.length > 0">
+        <ng-container *ngTemplateOutlet="recursiveitemsTmpl; context:{ items: item.children, index: index+1 }"></ng-container>
+      </ng-container>
+
+    </mat-expansion-panel>
+  </ng-container>
+</ng-template>
+
+
+<ng-template #menuItemTemplate let-item="item">
+
+  <div class="flex justify-start items-center text-sm text-gray-700 font-medium">
+    <mat-icon class="mr-2 text-main" [ngClass]="{'hidden': !item.matIcon}">{{ item.matIcon || 'plus'}}</mat-icon>
+    <div>{{ item.title }}</div>
+  </div>
+
+</ng-template>

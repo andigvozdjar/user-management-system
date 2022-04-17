@@ -1,0 +1,21 @@
+<mat-form-field class="list-filter-input {{DataType[type].toLowerCase()}}" autocomplete="off" appearance="fill" *ngIf="type !== DataType.ENUM">
+
+  <!-- string type -->
+  <ng-container *ngIf="type === DataType.STRING">
+    <input #input matInput type="text" autocomplete="off" [ngClass]="{'cursor-normal': disabled}" [readonly]="disabled">
+  </ng-container>
+
+  <!-- other types has own button -->
+  <button *ngIf="type === DataType.STRING" mat-button matPrefix mat-icon-button tabindex="-1" [ngClass]="{'invisible': disabled }">
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-form-field>
+
+<ng-container *ngIf="type === DataType.ENUM">
+
+  <o-select class="list-filter-select" *ngIf="lookupFilter && lookupFilter.optionsSource" [label]="' '" [name]="lookupFilter.column" [multiple]="false" [dataSource]="lookupFilter!.optionsSource" [selectAll]="false"
+    [searchEnabled]="lookupFilter!.optionsSource.paginate" [displayExpr]="lookupFilter!.displayExpr ?? 'label'" [displayFunc]="lookupFilter.displayFunc"
+    [valueExpr]="lookupFilter.valueExpr ?? 'value'">
+  </o-select>
+
+</ng-container>

@@ -1,0 +1,22 @@
+@mixin mat-table-columns($columns) {
+  .mat-column- {
+
+    @each $colName,
+    $props in $columns {
+      $flex: map-get($props, "flex");
+
+      &#{$colName} {
+        flex: $flex;
+        @if map-has-key($props, "justifyContent") {
+          justify-content: map-get($props, "justifyContent");
+        }
+        @if map-has-key($props, "color") {
+          color: map-get($props, "color");
+        }
+        @if map-has-key($props, "minWidth") {
+          min-width: map-get($props, "minWidth");
+        }
+      }
+    }
+  }
+}

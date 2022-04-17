@@ -1,0 +1,67 @@
+<app-layout-wrapper>
+  <form *ngIf="formData" class="col-span-10 xl:col-span-4" (ngSubmit)="onSubmit()" [matchValue]="['password', 'repeatPassword']" #ngForm="ngForm">
+
+    <mat-form-field>
+      <mat-label>First name</mat-label>
+      <input matInput type="text" name="firstName" [(ngModel)]="formData.firstName" [placeholder]="'Enter first name'">
+      <mat-error>First name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last name</mat-label>
+      <input matInput type="text" name="lastName" [(ngModel)]="formData.lastName" [placeholder]="'Enter last name'">
+      <mat-error>Username is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput type="text" name="username" [readonly]="id" [(ngModel)]="formData.username" [placeholder]="'Enter username'">
+      <mat-error>Username is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="text" name="email" #email="ngModel" [(ngModel)]="formData.email" [placeholder]="'Enter email'">
+      <mat-error>
+        {{ email.errors?.['required'] ? 'Email is required' : "Email isn't valid" }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!id">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="'password'" name="password" [readonly]="id" [(ngModel)]="formData.password" [placeholder]="'Enter password'">
+      <mat-error>Password is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!id">
+      <mat-label>Repeat password</mat-label>
+      <input matInput [type]="'password'" #repeatPassword="ngModel"name="repeatPassword" [(ngModel)]="formData.repeatPassword" [placeholder]="'Enter password'">
+      <mat-error>
+        {{ 
+          repeatPassword.errors?.['required'] ?
+            'Repeat password is required'
+            : "Passwords don't match"
+        }}
+      </mat-error>
+    </mat-form-field>
+
+    <o-select [label]="'Select status'" [required]="true" [form]="ngForm" requiredMessage="Status is required" [showClearButton]="false"
+      [(value)]="formData.status" name="status" [dataSource]="userStatusOptions" [selectAll]="false"
+      displayExpr="label" valueExpr="value">
+    </o-select>
+
+    <div class="flex justify-end gap-x-3">
+      <a *ngIf="id" mat-button [routerLink]="['../'+route.ASSIGN, id]">
+        <mat-icon>
+          military_tech
+        </mat-icon>
+        <span>
+          Assign permissions
+        </span>
+      </a>
+      <button type="submit" class="bg-main text-white" mat-flat-button>Save</button>
+    </div>
+
+  </form>
+
+</app-layout-wrapper>

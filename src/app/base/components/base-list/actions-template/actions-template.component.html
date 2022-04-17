@@ -1,0 +1,18 @@
+<button #button mat-icon-button #actionsMenuTrigger="matMenuTrigger" (click)="setMenuPosition($event)" [matMenuTriggerFor]="dropdownButton">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #dropdownButton="matMenu" xPosition="before" class="actions-container">
+  <ng-content></ng-content>
+  <a [routerLink]="['./', id]" mat-button>
+    <mat-icon class="action-icon">edit</mat-icon>
+    <span class="action-text">
+      Edit
+    </span>
+  </a>
+  <button mat-button (click)="delete()">
+    <mat-icon class="action-icon">delete</mat-icon>
+    <span class="action-text">
+      Delete
+    </span>
+  </button>
+</mat-menu>

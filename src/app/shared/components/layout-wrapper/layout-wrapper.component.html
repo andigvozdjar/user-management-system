@@ -1,0 +1,20 @@
+<div class="grid grid-cols-1 p-4 bg-white mx-3">
+  <div class="col-span-1 flex justify-between items-center">
+    <div>
+      <h2 class="text-main text-2xl font-bold">
+        {{ heading }}
+      </h2>
+      <h5 class="col-span-1 mb-3">
+        {{ subtitle }}
+      </h5>
+    </div>
+
+    <div *ngIf="buttonsTemplate" class="btn-container">
+      <ng-container *ngTemplateOutlet="buttonsTemplate"></ng-container>
+    </div>
+
+  </div>
+  <div class="grid grid-cols-10 border p-4">
+    <ng-content></ng-content>
+  </div>
+</div>

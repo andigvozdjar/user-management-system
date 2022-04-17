@@ -1,0 +1,56 @@
+<ng-container *ngTemplateOutlet="recursiveitemsTmpl; context:{ dataSource: dataSource$ | async, index: 0 }"></ng-container>
+
+<ng-template #recursiveitemsTmpl let-dataSource="dataSource" let-index="index">
+
+  <mat-table [ngClass]="{'mb-5': index == 0, 'mb-3': index > 0}" class="table-index-{{index}} nested-table" matSort multiTemplateDataRows [dataSource]="dataSource">
+    <ng-container matColumnDef="expand">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell [attr.data-cy]="'PRIVILEGES-EXPAND-'+row?.value" *matCellDef="let row" class="expand-icon-cell my-1">
+        <div [ngStyle]="{width: (index+1)*12 + 'px'}" class="spacer"></div>
+        <mat-icon (click)="toggleRow(row)" [ngClass]="{'rotate-90': expandedElements.includes(row.value)}" class="transition-all">
+          {{ row.children && row.children.length > 0 && 'chevron_right' }}
+        </mat-icon>
+        <mat-checkbox *ngIf="index > 0" (change)="checkBoxChange($event, row)"[checked]="isCheckedCheckBox(row)"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+      <mat-cell (click)="toggleRow(row)" [attr.data-cy]="'PRIVILEGES-'+row.value" *matCellDef="let row">
+        <div [ngStyle]="{width: (index+1)*12 + 'px'}" class="spacer"></div>
+        <span *ngIf="index == 0; else permissionCodeTemplate">
+          Group: {{ row.value | lowercase }}
+        </span>
+        <ng-template #permissionCodeTemplate>
+          {{ row.code }}
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell (click)="toggleRow(row)" [attr.data-cy]="'PRIVILEGES-DESCRIPTION-'+row.description" *matCellDef="let row">
+        {{ row.description }}
+      </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="expandedDetail">
+      <mat-cell *matCellDef="let element">
+        <div *ngIf="element.children" class="w-full" [@detailExpand]="expandedElements.includes(element.value) ? 'expanded' : 'collapsed'">
+          <ng-container *ngTemplateOutlet="recursiveitemsTmpl; context:{ dataSource: element.children, index: index + 1 }"></ng-container>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <div *matNoDataRow class="no-data-text">
+      {{ "SHARED.NO_DATA" }}
+    </div>
+    
+
+    <mat-header-row [ngClass]="{'hidden': index != 0}" *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row [class.expanded-row]="expandedElements.includes(element.value)" class="row-index-{{index}}" *matRowDef="let element; columns: ['expandedDetail']"></mat-row>
+  </mat-table>
+
+</ng-template>

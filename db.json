@@ -1,0 +1,46 @@
+{
+  "users": [
+  ],
+  "permissions": [
+    {
+      "id": 1,
+      "code": "R_USR",
+      "description": "Users preview",
+      "permissionGroup": "USERS"
+    },
+    {
+      "id": 2,
+      "code": "CD_USR",
+      "description": "Creating and updating user data",
+      "permissionGroup": "USERS"
+    },
+    {
+      "id": 3,
+      "code": "CD_AU",
+      "description": "Creating and deleting administrative units",
+      "permissionGroup": "ADMINISTRATIVE_UNITS"
+    },
+    {
+      "id": 4,
+      "code": "R_AU",
+      "description": "administrative units preview",
+      "permissionGroup": "ADMINISTRATIVE_UNITS"
+    },
+    {
+      "id": 5,
+      "code": "U_AU",
+      "description": "Update of administrative units",
+      "permissionGroup": "ADMINISTRATIVE_UNITS"
+    },
+    {
+      "id": 6,
+      "code": "R_PROFILE",
+      "description": "Read profile"
+    },
+    {
+      "id": 7,
+      "code": "CD_PROFILE",
+      "description": "Creating and deleting profile data"
+    }
+  ]
+}

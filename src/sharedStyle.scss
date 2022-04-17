@@ -1,0 +1,52 @@
+@import"./colors.scss";
+@import"./table.scss";
+
+.noselect,
+img {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+.bg-main {
+  background: $main-color;
+}
+
+.text-main {
+  color: $main-color;
+}
+
+h2.title {
+  font-size: min(32px, calc(1rem + .9vw));
+  font-weight: 700;
+}
+
+//  SHARED columns table width
+@include mat-table-columns(
+  (
+    status-filter-input: (
+      flex: 0 0 100px,
+      justifyContent: center
+    ),
+    status: (
+      flex: 0 0 100px,
+      justifyContent: center
+    ),  
+    actions-filter-input: (
+      flex: 0 0 100px,
+      justifyContent: flex-end
+    ),
+    actions: (
+      flex: 0 0 100px,
+      justifyContent: flex-end
+    )
+  )
+);

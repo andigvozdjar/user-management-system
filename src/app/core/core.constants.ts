@@ -1,0 +1,12 @@
+export const STORAGE_TOKEN = 'users_token';
+export const STORAGE_APP_VERSION = 'app_version';
+export const EMAIL_REGEX = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+export const TEXT_INPUT_DEBOUNCE = 400;
+export const TEXT_INPUT_MIN_LENGTH = 1;
+export const SORT_DEBOUNCE = 300;
+export const MAX_REQUEST_TIME = 10000;
+export const API = '/api';
+export const TOAST_TIMEOUT = 4000;
+export const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
+export const DEFAULT_PAGE = PAGE_SIZE_OPTIONS[1];
+export const LOGO_PATH = 'assets/logo.png';

@@ -1,0 +1,15 @@
+<div class="overflow-hidden">
+  <button (click)="toggleSidebar()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <button class="float-right" mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>favorite</mat-icon>
+      <span>Thanks for clicking here</span>
+    </button>
+  </mat-menu>
+</div>

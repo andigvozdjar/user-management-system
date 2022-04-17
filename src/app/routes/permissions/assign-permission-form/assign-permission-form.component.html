@@ -1,0 +1,9 @@
+<app-layout-wrapper [@fadeInOutAnimation] *ngIf="user" [heading]="'Assign permissions for '+ user.firstName +' '+ user.lastName" >
+  <div class="col-span-10 xl:col-span-5">
+    <app-user-simple-preview class="mb-5 block" [user]="user"></app-user-simple-preview>
+    <app-permissions-nested-list [@fadeInOutAnimation] *ngIf="user?.permissions" (userPermissionsChange)="userPermissionsChange()" [(userPermissions)]="user!.permissions" ></app-permissions-nested-list>
+  </div>
+  <div class="col-span-10 xl:col-start-1 xl:col-span-5 flex justify-end">
+    <button type="submit" (click)="changePermissions()" class="bg-main text-white" mat-flat-button>Save</button>
+  </div>
+</app-layout-wrapper>

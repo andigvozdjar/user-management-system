@@ -1,0 +1,39 @@
+@import"../../../../table.scss";
+
+@include mat-table-columns(
+  (
+    expand-filter-input: (
+      flex: 0 0 30px,
+      color: gray,
+      minWidth: 30px
+    ),
+    expand: (
+      flex: 0 0 30px,
+      color: gray,
+      minWidth: 30px
+    ),
+));
+
+
+.mat-row {
+  &:not(.expanded-row)  {
+    min-height: 0px !important; 
+  }
+}
+
+.row-index-1 {
+  border-bottom-color: rgb(0 0 0 / 0%);
+  border-bottom: 0px;
+}
+
+.mat-table {
+  .mat-row:nth-last-child(-n+1) {
+    border-bottom: 0px !important;
+  }
+}
+
+.expanded-row {
+  .mat-column-expandedDetail {
+    border-bottom: 0px !important;
+  }
+}

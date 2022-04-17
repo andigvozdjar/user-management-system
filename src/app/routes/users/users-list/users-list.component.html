@@ -1,0 +1,108 @@
+<app-layout-wrapper [buttonsTemplate]="buttonsTemplate">
+  <ng-template #buttonsTemplate>
+    <a [routerLink]="'./'+route.NEW" type="button" class="bg-main text-white" mat-flat-button>
+      <mat-icon class="inline lg:hidden">add</mat-icon>
+      <span class="hidden lg:inline">
+        Create user
+      </span>
+    </a>
+  </ng-template>
+  <div class="col-span-10">
+    <mat-table *ngIf="displayedColumns && filterColumns" matSort [dataSource]="dataSource">
+  
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell mat-sort-header="firstName" *matHeaderCellDef>First name</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.firstName }}
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell mat-sort-header="lastName" *matHeaderCellDef>Last name</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.lastName }}
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="username">
+        <mat-header-cell mat-sort-header="username" *matHeaderCellDef>Username</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.username }}
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="email">
+        <mat-header-cell mat-sort-header="email" *matHeaderCellDef>Email</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.email }}
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="status">
+        <mat-header-cell mat-sort-header="status" *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-icon
+            (click)="changeStatus(row, row.status == UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE)"
+            [matTooltip]="(row?.status == UserStatus.ACTIVE ? 'Deactivate' : 'Activate')" [ngClass]="row.status == UserStatus.ACTIVE ? 'text-green-600' : 'text-red-600'">
+            {{ row?.status == UserStatus.ACTIVE ? 'toggle_on' : 'toggle_off'}}
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <app-actions-template 
+            [active]="row.active"
+            (deleteEvent)="delete(row.id)"
+            [id]="row.id">
+
+            <button mat-button (click)="changeStatus(row, row.status == UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE)">
+              <mat-icon>
+                {{ row?.status == UserStatus.ACTIVE ? 'toggle_off' : 'toggle_on'}}
+              </mat-icon>
+              <span class="action-text">
+                {{ row?.status == UserStatus.ACTIVE ? 'Deactivate' : 'Activate' }}
+              </span>
+            </button>
+
+            <a mat-button [routerLink]="['./'+route.ASSIGN, row.id]">
+              <mat-icon>
+                military_tech
+              </mat-icon>
+              <span class="action-text">
+                Assign
+              </span>
+            </a>
+
+          </app-actions-template>
+        </mat-cell>
+      </ng-container>
+  
+      <ng-template ngFor [ngForOf]="displayedColumns" let-column>
+        <ng-container [matColumnDef]="column+templateFilterPrefix">
+          <mat-header-cell *matHeaderCellDef>
+            <app-list-filter-input
+              [column]="column"
+              [lookupFilterList]="lookupFilterList"
+              [enumColumns]="['status']"
+              [disabledColumns]="['actions']"
+            >
+            </app-list-filter-input>
+          </mat-header-cell>
+        </ng-container>
+      </ng-template>
+  
+      <div [@fadeInOutAnimation] [ngClass]="{'hidden': showLoadingBar }" *matNoDataRow class="no-data-text">
+        No users
+      </div>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="filterColumns" class="filter-header-row"></mat-header-row>
+      <mat-row [@fadeInAnimation] *matRowDef="let row; columns: displayedColumns;" (click)="rowClick($event, row.id)" (contextmenu)="onRightClick($event, row.id)"></mat-row>
+    </mat-table>
+    <mat-paginator class="transition-all delay-500" [ngClass]="{'invisible': dataSource.data.length == 0 }"></mat-paginator>
+
+  </div>
+
+</app-layout-wrapper>

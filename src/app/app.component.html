@@ -1,0 +1,10 @@
+<mat-drawer-container class="min-h-screen">
+  <mat-drawer #drawer [opened]="menuOpened$ | async" [mode]="menuService.isMobile ? 'over': 'side'">
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+
+</mat-drawer-container>
