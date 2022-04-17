@@ -14,11 +14,10 @@ npm install -g json-server
 ```
 npm install
 ```
-2. Run 
+2. Run command to start local json-server
 ```
 npm run start-server
 ```
-  to start local json-server
 3. In another terminal run
 ```
   npm run start-mock
