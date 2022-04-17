@@ -18,8 +18,8 @@ npm install
 ```
 npm run start-server
 ```
-  to deploy locally json-server
-3. Run 
+  to start local json-server
+3. In another terminal run
 ```
   npm run start-mock
 ```
